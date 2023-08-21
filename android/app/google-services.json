@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "700105372774",
+    "project_id": "dating-app-6959f",
+    "storage_bucket": "dating-app-6959f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700105372774:android:1b9f6a0f38f7549e5769a7",
+        "android_client_info": {
+          "package_name": "com.limonislam.dating_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700105372774-ua15vpkeo6t5h4la1kft1lvj4hqs9fol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzVoLH66tMDe3KWx--M2Dduk1MaNmEd-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700105372774-ua15vpkeo6t5h4la1kft1lvj4hqs9fol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
