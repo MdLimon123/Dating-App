@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/HomeScreen/home_screen.dart';
+import 'package:dating_app/Views/authenticationScreen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,10 @@ class AuthenticationController extends GetxController {
   late Rx<File?> pickedFile;
   File? get profileImage => pickedFile.value;
   XFile? imageFile ;
+
+  var showProgressBar = false.obs;
+
+  late Rx<User?> firebaseCurrentUser;
 
   pickImageFileFromGallery() async {
    imageFile =
@@ -89,6 +94,8 @@ class AuthenticationController extends GetxController {
       String languageSpoken,
       String religion,
       String ethnicity) async {
+
+    showProgressBar(true);
     try {
       // 1. authenticate user create User With Email And Password
       UserCredential credential = await FirebaseAuth.instance
@@ -148,6 +155,56 @@ class AuthenticationController extends GetxController {
     } catch (errorMsg) {
       Get.snackbar(
           'Account Creation Unsuccessful', 'Error occurred: $errorMsg');
+    }finally{
+      showProgressBar(false);
     }
   }
+
+  loginUser(String emailUser, String passwordUser)async{
+
+    showProgressBar(true);
+
+    try{
+
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailUser, password: passwordUser);
+      Get.snackbar('Logged-in Successful', "you're logged-in successfully.");
+
+      Get.to(HomeScreen());
+
+
+    }catch(errorMsg){
+      Get.snackbar(
+          'Login Unsuccessful', 'Error occurred: $errorMsg');
+    }finally{
+      showProgressBar(false);
+    }
+
+  }
+
+  @override
+ void onReady(){
+    super.onReady();
+
+    firebaseCurrentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
+    firebaseCurrentUser.bindStream(FirebaseAuth.instance.authStateChanges());
+    ever(firebaseCurrentUser, checkIfUserIsLoggedIn);
+
+
+  }
+
+
+  checkIfUserIsLoggedIn(User? currentUser){
+
+    if(currentUser == null){
+
+      Get.to(LoginScreen());
+
+    }else{
+
+      Get.to(HomeScreen());
+
+    }
+
+  }
+
 }

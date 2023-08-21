@@ -105,7 +105,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController ethnicityTextEditingController =
       TextEditingController();
 
-  bool showProgressBar = false;
+ // bool showProgressBar = false;
 
   final authenticationController = AuthenticationController.authController;
 
@@ -768,9 +768,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               .trim()
                               .isNotEmpty) {
 
-                        setState(() {
-                          showProgressBar = true;
-                        });
+
 
                      await authenticationController.createNewUserAccount(
                             authenticationController.profileImage!,
@@ -805,9 +803,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             religionTextEditingController.text.trim(),
                             ethnicityTextEditingController.text.trim());
 
-                     setState(() {
-                       showProgressBar = false;
-                     });
+
 
                       } else {
                         Get.snackbar('A Field is Empty',
@@ -860,11 +856,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               SizedBox(
                 height: 16.h,
               ),
-              showProgressBar == true
+              Obx(() => authenticationController.showProgressBar.value
                   ? const CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.pink),
                     )
-                  : Container(),
+                  : Container()),
 
               SizedBox(
                 height: 30.h,

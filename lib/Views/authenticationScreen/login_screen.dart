@@ -1,19 +1,25 @@
 
 import 'package:dating_app/Views/authenticationScreen/registration_screen.dart';
 import 'package:dating_app/Widgets/custom_text_field.dart';
+import 'package:dating_app/controllers/authentication_controller.dart';
 import 'package:dating_app/utils/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
    LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
    final TextEditingController emailTextEditingController = TextEditingController();
 
    final TextEditingController passwordEditingController = TextEditingController();
 
-   bool showProgressBar = false;
+   final _loginController = AuthenticationController.authController;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                   fontSize: 18.sp
               ),),
               SizedBox(height: 28.h,),
-// email
+          // email
               SizedBox(
                 width: MediaQuery.of(context).size.width - 36,
                 height: 55.h,
@@ -70,7 +76,15 @@ class LoginScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.r)
                 ),
                 child: InkWell(
-                  onTap: (){},
+                  onTap: ()async{
+
+                    if(emailTextEditingController.text.trim().isNotEmpty && passwordEditingController.text.trim().isNotEmpty){
+                     await _loginController.loginUser(emailTextEditingController.text.trim(), passwordEditingController.text.trim());
+                    }else{
+                      Get.snackbar("Email/Password is Missing", "Please fill all fields.");
+                    }
+
+                  },
                   child: Center(
                     child: Text('Login',style: TextStyle(
                       fontSize: 20.sp,
@@ -107,12 +121,12 @@ class LoginScreen extends StatelessWidget {
               ),
 
               SizedBox(height: 16.h,),
-              showProgressBar == true? const CircularProgressIndicator(
+              Obx(() => _loginController.showProgressBar.value? const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
 
                   Colors.pink
                 ),
-              ):Container(),
+              ):Container()),
 
               SizedBox(height: 30.h,),
 
