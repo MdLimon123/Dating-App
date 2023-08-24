@@ -109,6 +109,7 @@ class AuthenticationController extends GetxController {
 
       personModel.Person personInstance = personModel.Person(
           // personal Info
+        uid: FirebaseAuth.instance.currentUser!.uid,
           imageProfile: urlDownloadedImage,
           email: email,
           password: password,
