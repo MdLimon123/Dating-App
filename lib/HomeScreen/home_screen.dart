@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
             unselectedItemColor: Colors.black,
             currentIndex: _navController.currentIndex.value,
             items: [
-              // SwippingScreen
+              // Swiping Screen
               BottomNavigationBarItem(icon: Icon(Icons.home,size: 30.sp,
               ),
               label: ""),
@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
               ),
                   label: ""),
               //userDetailsScreen icon button
-              BottomNavigationBarItem(icon: Icon(Icons.home,size: 30.sp,
+              BottomNavigationBarItem(icon: Icon(Icons.person,size: 30.sp,
               ),
                   label: ""),
             ],
