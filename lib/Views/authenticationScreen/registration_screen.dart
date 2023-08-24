@@ -803,6 +803,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             religionTextEditingController.text.trim(),
                             ethnicityTextEditingController.text.trim());
 
+                     setState(() {
+                       authenticationController.imageFile = null;
+                     });
+
 
 
                       } else {
