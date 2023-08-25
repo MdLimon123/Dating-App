@@ -12,34 +12,32 @@ import 'package:dating_app/models/person.dart' as personModel;
 class AuthenticationController extends GetxController {
   static AuthenticationController authController = Get.find();
 
-
   late Rx<File?> pickedFile;
   File? get profileImage => pickedFile.value;
-  XFile? imageFile ;
+  XFile? imageFile;
 
   var showProgressBar = false.obs;
 
   late Rx<User?> firebaseCurrentUser;
 
   pickImageFileFromGallery() async {
-   imageFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    imageFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (imageFile != null) {
       Get.snackbar('Profile Image',
           'you have successfully picked your profile image from gallery');
     }
 
-    pickedFile= Rx<File?>(File(imageFile!.path));
+    pickedFile = Rx<File?>(File(imageFile!.path));
   }
 
   captureImageFromCamera() async {
-     imageFile = await ImagePicker().pickImage(source: ImageSource.camera);
+    imageFile = await ImagePicker().pickImage(source: ImageSource.camera);
     if (imageFile != null) {
       Get.snackbar('Profile Image',
           'you have successfully captured your profile image using camera');
     }
 
-    pickedFile= Rx<File?>(File(imageFile!.path));
+    pickedFile = Rx<File?>(File(imageFile!.path));
   }
 
   Future<String> uploadImageToStorage(File imageFile) async {
@@ -70,7 +68,6 @@ class AuthenticationController extends GetxController {
       String profileHeading,
       String lookingForInaPartner,
 
-
       //Appearance
       String height,
       String weight,
@@ -94,7 +91,6 @@ class AuthenticationController extends GetxController {
       String languageSpoken,
       String religion,
       String ethnicity) async {
-
     showProgressBar(true);
     try {
       // 1. authenticate user create User With Email And Password
@@ -109,7 +105,7 @@ class AuthenticationController extends GetxController {
 
       personModel.Person personInstance = personModel.Person(
           // personal Info
-        uid: FirebaseAuth.instance.currentUser!.uid,
+          uid: FirebaseAuth.instance.currentUser!.uid,
           imageProfile: urlDownloadedImage,
           email: email,
           password: password,
@@ -150,62 +146,47 @@ class AuthenticationController extends GetxController {
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .set(personInstance.toJson());
-      Get.snackbar('Account Created', 'Congratulations, Your account has been created.');
+      Get.snackbar(
+          'Account Created', 'Congratulations, Your account has been created.');
       Get.to(HomeScreen());
-
     } catch (errorMsg) {
       Get.snackbar(
           'Account Creation Unsuccessful', 'Error occurred: $errorMsg');
-    }finally{
+    } finally {
       showProgressBar(false);
     }
   }
 
-  loginUser(String emailUser, String passwordUser)async{
-
+  loginUser(String emailUser, String passwordUser) async {
     showProgressBar(true);
 
-    try{
-
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailUser, password: passwordUser);
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailUser, password: passwordUser);
       Get.snackbar('Logged-in Successful', "you're logged-in successfully.");
 
       Get.to(HomeScreen());
-
-
-    }catch(errorMsg){
-      Get.snackbar(
-          'Login Unsuccessful', 'Error occurred: $errorMsg');
-    }finally{
+    } catch (errorMsg) {
+      Get.snackbar('Login Unsuccessful', 'Error occurred: $errorMsg');
+    } finally {
       showProgressBar(false);
     }
-
   }
 
   @override
- void onReady(){
+  void onReady() {
     super.onReady();
 
     firebaseCurrentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
     firebaseCurrentUser.bindStream(FirebaseAuth.instance.authStateChanges());
     ever(firebaseCurrentUser, checkIfUserIsLoggedIn);
-
-
   }
 
-
-  checkIfUserIsLoggedIn(User? currentUser){
-
-    if(currentUser == null){
-
+  checkIfUserIsLoggedIn(User? currentUser) {
+    if (currentUser == null) {
       Get.to(LoginScreen());
-
-    }else{
-
+    } else {
       Get.to(HomeScreen());
-
     }
-
   }
-
 }
