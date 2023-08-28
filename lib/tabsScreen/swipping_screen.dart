@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../controllers/profile_controller.dart';
 
 class SwippingScreen extends StatefulWidget {
-
   const SwippingScreen({super.key});
 
   @override
@@ -16,21 +16,139 @@ class _SwippingScreenState extends State<SwippingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(()=>
-         PageView.builder(
+        body: Obx(
+      () => PageView.builder(
           itemCount: _profileController.allUserProfileList.length,
-            itemBuilder:(context, index){
-          final eachProfile = _profileController.allUserProfileList[index];
+          itemBuilder: (context, index) {
+            final eachProfile = _profileController.allUserProfileList[index];
 
-          return DecoratedBox(decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(eachProfile.imageProfile.toString()),
-              fit: BoxFit.cover
-            ),
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(eachProfile.imageProfile.toString()),
+                    fit: BoxFit.cover),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(12.w),
+                child: Column(
+                  children: [
+                    // filter icon button
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 8.w),
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.filter_list,
+                              size: 30.sp,
+                            )),
+                      ),
+                    ),
 
-          ));
-        }),
-      )
-    );
+                    // user data
+                    Spacer(),
+                    InkWell(
+                      onTap: () {},
+                      child: Column(
+                        children: [
+                          // name
+                          Text(
+                            eachProfile.name.toString(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 4),
+                          ),
+
+                          // age and city
+                          Text(
+                            "${eachProfile.age} ● ${eachProfile.city}  ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.sp,
+                                letterSpacing: 4),
+                          ),
+                          SizedBox(
+                            height: 4.h,
+                          ),
+
+                          // profiession and religion
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white30,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.r))),
+                                  child: Text(
+                                    eachProfile.profession.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14.sp),
+                                  )),
+                              SizedBox(
+                                width: 6.w,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white30,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.r))),
+                                  child: Text(
+                                    eachProfile.religion.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14.sp),
+                                  ))
+                            ],
+                          ),
+
+                          // country and ethnicity
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white30,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.r))),
+                                  child: Text(
+                                    eachProfile.country.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14.sp),
+                                  )),
+                              SizedBox(
+                                width: 6.w,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white30,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16.r))),
+                                  child: Text(
+                                    eachProfile.ethnicity.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14.sp),
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+          }),
+    ));
   }
 }
