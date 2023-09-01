@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app/global.dart';
 import 'package:dating_app/models/person.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -24,5 +25,57 @@ class ProfileController extends GetxController {
       }
       return profilesList;
     }));
+  }
+
+  favoriteSentAndFavoriteReceived(String toUserID, String senderName) async {
+    var doucument = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(toUserID)
+        .collection('favoriteReceived')
+        .doc(currentUserID)
+        .get();
+
+    // remove the favorite from database
+    if (doucument.exists) {
+      // remove currentUserID from the favoreite Received list of the profile person [toUserID]
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(toUserID)
+          .collection('favoriteReceived')
+          .doc(currentUserID)
+          .delete();
+
+      // remove profile person [toUserID] from the favoreite Received list of currentUserID
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserID)
+          .collection('favoriteSent')
+          .doc(toUserID)
+          .delete();
+    } else {
+      // mark add favorite from database
+
+      // add  CurrentUserID to the favoriteReceived list of that profile person [toUserID]
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(toUserID)
+          .collection('favoriteReceived')
+          .doc(currentUserID)
+          .set({});
+
+      // add profile person [toUserID] to the favorite sent list of currentUserID
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserID)
+          .collection('favoriteSent')
+          .doc(toUserID)
+          .set({});
+
+      // sent notification
+    }
+
+    update();
   }
 }
