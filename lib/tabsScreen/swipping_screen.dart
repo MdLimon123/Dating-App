@@ -1,3 +1,4 @@
+import 'package:dating_app/utils/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -46,8 +47,8 @@ class _SwippingScreenState extends State<SwippingScreen> {
                       ),
                     ),
 
-                    // user data
                     Spacer(),
+                    // user data
                     InkWell(
                       onTap: () {},
                       child: Column(
@@ -143,7 +144,43 @@ class _SwippingScreenState extends State<SwippingScreen> {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 14.h,
+                    ),
+
+                    // image buttons - favorites- chat - likes
+
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // favorite
+                          GestureDetector(
+                            onTap: () {},
+                            child: Image.asset(
+                              AppImage.favorite,
+                              width: 60.w,
+                            ),
+                          ),
+
+                          // chat
+                          GestureDetector(
+                            onTap: () {},
+                            child: Image.asset(
+                              AppImage.chat,
+                              width: 60.w,
+                            ),
+                          ),
+
+                          // like
+                          GestureDetector(
+                            onTap: () {},
+                            child: Image.asset(
+                              AppImage.like,
+                              width: 60.w,
+                            ),
+                          ),
+                        ])
                   ],
                 ),
               ),
