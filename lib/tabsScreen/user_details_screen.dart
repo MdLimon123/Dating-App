@@ -85,7 +85,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         setState(() {
           // personal info
           name = snapshot.data()!['name'];
-          age = snapshot.data()!['age'];
+          age = snapshot.data()!['age'].toString();
           phoneNo = snapshot.data()!['phoneNo'];
           city = snapshot.data()!['city'];
           country = snapshot.data()!['country'];
@@ -151,6 +151,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
           ],
         ),
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.all(30.w),
             child: Column(
@@ -197,7 +198,523 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       ],
                     ),
                   ),
-                )
+                ),
+
+                // personal info title
+                SizedBox(
+                  height: 30.h,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Personal Info:',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                const Divider(
+                  thickness: 2,
+                  color: Colors.white,
+                ),
+
+                // personal info table data
+                Container(
+                  color: Colors.black,
+                  padding: EdgeInsets.all(20.w),
+                  child: Table(
+                    children: [
+                      // name
+                      TableRow(children: [
+                        Text(
+                          "Name: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          name,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // age
+                      TableRow(children: [
+                        Text(
+                          "Age: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          age,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // phone No
+                      TableRow(children: [
+                        Text(
+                          "Phone Number: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          phoneNo,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // city
+                      TableRow(children: [
+                        Text(
+                          "City: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          city,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // country
+                      TableRow(children: [
+                        Text(
+                          "Country: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          country,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // seeking
+                      TableRow(children: [
+                        Text(
+                          "Seeking: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          lookingForInaPartner,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+                    ],
+                  ),
+                ),
+
+                //Appearance title
+                SizedBox(
+                  height: 30.h,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Appearance: ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                const Divider(
+                  thickness: 2,
+                  color: Colors.white,
+                ),
+
+                // Appearance info table data
+
+                Container(
+                  color: Colors.black,
+                  padding: EdgeInsets.all(20.w),
+                  child: Table(
+                    children: [
+                      // height
+                      TableRow(children: [
+                        Text(
+                          "Height: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          height,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // weight
+                      TableRow(children: [
+                        Text(
+                          "Weight: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          weight,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // body type
+                      TableRow(children: [
+                        Text(
+                          "Body Type: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          bodyType,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+                    ],
+                  ),
+                ),
+
+                // Life style title
+                SizedBox(
+                  height: 30.h,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Life Style: ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                const Divider(
+                  thickness: 2,
+                  color: Colors.white,
+                ),
+
+                // life style info table data
+
+                Container(
+                  color: Colors.black,
+                  padding: EdgeInsets.all(20.w),
+                  child: Table(
+                    children: [
+                      // drink
+                      TableRow(children: [
+                        Text(
+                          "Drink: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          drink,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // smoke
+                      TableRow(children: [
+                        Text(
+                          "Smoke: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          smoke,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // martialStatus
+                      TableRow(children: [
+                        Text(
+                          "Marital Status: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          martialStatus,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      TableRow(children: [
+                        // haveChildren
+                        Text(
+                          "Have an Children: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          haveChildren,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // noOfChildren
+                      TableRow(children: [
+                        Text(
+                          "No Of Children: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          noOfChildren,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // profession
+                      TableRow(children: [
+                        Text(
+                          "Profession: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          profession,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // employmentStatus
+                      TableRow(children: [
+                        Text(
+                          "Employment Status: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          employmentStatus,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // income
+                      TableRow(children: [
+                        Text(
+                          "Income: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          income,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // livingSituation
+                      TableRow(children: [
+                        Text(
+                          "Living Situation: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          livingSituation,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      TableRow(children: [
+                        // willingToRelocate
+                        Text(
+                          "Willing To Relocate: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          willingToRelocate,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // relationshipYouAreLookingFor
+                      TableRow(children: [
+                        Text(
+                          "Rrelationship You AreLooking For: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          relationshipYouAreLookingFor,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+                    ],
+                  ),
+                ),
+
+                // Background - Cultural Values title
+                SizedBox(
+                  height: 30.h,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Background Cultural Values: ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+
+                const Divider(
+                  thickness: 2,
+                  color: Colors.white,
+                ),
+
+                // Background - Cultural Values table data
+
+                Container(
+                  color: Colors.black,
+                  padding: EdgeInsets.all(20.w),
+                  child: Table(
+                    children: [
+                      // nationality
+                      TableRow(children: [
+                        Text(
+                          "Nationality: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          nationality,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // education
+                      TableRow(children: [
+                        Text(
+                          "Education: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          education,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+
+                      // languageSpoken
+                      TableRow(children: [
+                        Text(
+                          "Language Spoken: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          languageSpoken,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+                      // religion
+                      TableRow(children: [
+                        Text(
+                          "Religion: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          religion,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+                      // ethnicity
+                      TableRow(children: [
+                        Text(
+                          "Ethnicity: ",
+                          style:
+                              TextStyle(fontSize: 18.sp, color: Colors.white),
+                        ),
+                        Text(
+                          ethnicity,
+                          style: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                        ),
+                      ]),
+
+                      // extra table
+                      const TableRow(children: [Text(""), Text("")]),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

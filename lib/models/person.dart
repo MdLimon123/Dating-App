@@ -44,11 +44,11 @@ class Person {
 
   Person(
       {
-        // personal info
-        this.uid,
-        this.imageProfile,
-        this.email,
-        this.password,
+      // personal info
+      this.uid,
+      this.imageProfile,
+      this.email,
+      this.password,
       this.name,
       this.age,
       this.phoneNo,
@@ -57,11 +57,11 @@ class Person {
       this.profileHeading,
       this.lookingForInaPartner,
       this.publishedDateTime,
-        //Appearance
+      //Appearance
       this.height,
       this.weight,
       this.bodyType,
-        // Life style
+      // Life style
       this.drink,
       this.smoke,
       this.martialStatus,
@@ -73,20 +73,18 @@ class Person {
       this.livingSituation,
       this.willingToRelocate,
       this.relationshipYouAreLookingFor,
-        // Background - Cultural Values
+      // Background - Cultural Values
       this.nationality,
       this.education,
       this.languageSpoken,
       this.religion,
       this.ethnicity});
 
-
-  static Person fromDataSnapshot(DocumentSnapshot snapshot){
-
+  static Person fromDataSnapshot(DocumentSnapshot snapshot) {
     var dataSnapshot = snapshot.data() as Map<String, dynamic>;
 
     return Person(
-         // personal info
+      // personal info
       uid: dataSnapshot['uid'],
       name: dataSnapshot['name'],
       imageProfile: dataSnapshot['imageProfile'],
@@ -114,58 +112,52 @@ class Person {
       income: dataSnapshot['income'],
       livingSituation: dataSnapshot['livingSituation'],
       willingToRelocate: dataSnapshot['willingToRelocate'],
-      relationshipYouAreLookingFor: dataSnapshot['relationshipYouAreLookingFor'],
+      relationshipYouAreLookingFor:
+          dataSnapshot['relationshipYouAreLookingFor'],
       // Background - Cultural Values
       nationality: dataSnapshot['nationality'],
       education: dataSnapshot['education'],
       languageSpoken: dataSnapshot['languageSpoken'],
       religion: dataSnapshot['religion'],
       ethnicity: dataSnapshot['ethnicity'],
-
-
     );
-
   }
 
-
-  Map<String, dynamic> toJson()=>{
-    // personal info
-    "uid": uid,
-    "imageProfile":imageProfile,
-    "name":name,
-    "email":email,
-    "password":password,
-    "age":age,
-    "phoneNo":phoneNo,
-    "city":city,
-    "country":country,
-    "profileHeading":profileHeading,
-    "lookingForInaPartner":lookingForInaPartner,
-    "publishedDateTime":publishedDateTime,
-    //Appearance
-    "height":height,
-    "weight":weight,
-    "bodyType":bodyType,
-    // Life style
-    "drink":drink,
-    "smoke":smoke,
-    "martialStatus":martialStatus,
-    "haveChildren":haveChildren,
-    "noOfChildren":noOfChildren,
-    "profession":profession,
-    "employmentStatus":employmentStatus,
-    "income":income,
-    "livingSituation":livingSituation,
-    "willingToRelocate":willingToRelocate,
-    "relationshipYouAreLookingFor":relationshipYouAreLookingFor,
-    // Background - Cultural Values
-    "nationality":nationality,
-    "education":education,
-    "languageSpoken":languageSpoken,
-    "religion":religion,
-    "ethnicity":ethnicity,
-
-
-  };
-
+  Map<String, dynamic> toJson() => {
+        // personal info
+        "uid": uid,
+        "imageProfile": imageProfile,
+        "name": name,
+        "email": email,
+        "password": password,
+        "age": age,
+        "phoneNo": phoneNo,
+        "city": city,
+        "country": country,
+        "profileHeading": profileHeading,
+        "lookingForInaPartner": lookingForInaPartner,
+        "publishedDateTime": publishedDateTime,
+        //Appearance
+        "height": height,
+        "weight": weight,
+        "bodyType": bodyType,
+        // Life style
+        "drink": drink,
+        "smoke": smoke,
+        "martialStatus": martialStatus,
+        "haveChildren": haveChildren,
+        "noOfChildren": noOfChildren,
+        "profession": profession,
+        "employmentStatus": employmentStatus,
+        "income": income,
+        "livingSituation": livingSituation,
+        "willingToRelocate": willingToRelocate,
+        "relationshipYouAreLookingFor": relationshipYouAreLookingFor,
+        // Background - Cultural Values
+        "nationality": nationality,
+        "education": education,
+        "languageSpoken": languageSpoken,
+        "religion": religion,
+        "ethnicity": ethnicity,
+      };
 }
