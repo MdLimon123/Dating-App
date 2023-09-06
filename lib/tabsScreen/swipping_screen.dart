@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/global.dart';
+import 'package:dating_app/tabsScreen/user_details_screen.dart';
 import 'package:dating_app/utils/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -73,7 +74,15 @@ class _SwippingScreenState extends State<SwippingScreen> {
                     Spacer(),
                     // user data
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        // send user to profile person userDetailsScreen
+
+                        _profileController.viewSentAndViewReceived(
+                            eachProfile.uid.toString(), senderName);
+                        Get.to(UserDetailsScreen(
+                          userID: eachProfile.uid.toString(),
+                        ));
+                      },
                       child: Column(
                         children: [
                           // name
@@ -202,11 +211,8 @@ class _SwippingScreenState extends State<SwippingScreen> {
                           // like
                           GestureDetector(
                             onTap: () {
-
-                              _profileController
-                                  .likeSentAndFavoriteReceived(
+                              _profileController.likeSentAndFavoriteReceived(
                                   eachProfile.uid.toString(), senderName);
-
                             },
                             child: Image.asset(
                               AppImage.like,

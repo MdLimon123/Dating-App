@@ -27,6 +27,7 @@ class ProfileController extends GetxController {
     }));
   }
 
+// favorite sent and favorite received method
   favoriteSentAndFavoriteReceived(String toUserID, String senderName) async {
     var doucument = await FirebaseFirestore.instance
         .collection('users')
@@ -79,6 +80,7 @@ class ProfileController extends GetxController {
     update();
   }
 
+// like sent and like received method
   likeSentAndFavoriteReceived(String toUserID, String senderName) async {
     var doucument = await FirebaseFirestore.instance
         .collection('users')
@@ -122,6 +124,43 @@ class ProfileController extends GetxController {
           .collection('users')
           .doc(currentUserID)
           .collection('likeSent')
+          .doc(toUserID)
+          .set({});
+
+      // sent notification
+    }
+
+    update();
+  }
+
+// like sent and like received method
+  viewSentAndViewReceived(String toUserID, String senderName) async {
+    var doucument = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(toUserID)
+        .collection('viewReceived')
+        .doc(currentUserID)
+        .get();
+
+    if (doucument.exists) {
+      print("Already view in list");
+    } else {
+      // add-new view in  database
+
+      // add  CurrentUserID to the viewReceived list of that profile person [toUserID]
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(toUserID)
+          .collection('viewReceived')
+          .doc(currentUserID)
+          .set({});
+
+      // add profile person [toUserID] to the viewSent  list of currentUserID
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserID)
+          .collection('viewSent')
           .doc(toUserID)
           .set({});
 
