@@ -20,27 +20,27 @@ class _LikeSentLikeReceivedScreen extends State<LikeSentLikeReceivedScreen> {
   getLikedListKeys() async {
     if (isLikeSentClicked) {
       // favoriteSent
-      var favoriteSentDocument = await FirebaseFirestore.instance
+      var likeSentDocument = await FirebaseFirestore.instance
           .collection("users")
           .doc(currentUserID)
           .collection("likeSent")
           .get();
 
-      for (int i = 0; i < favoriteSentDocument.docs.length; i++) {
-        likeSentList.add(favoriteSentDocument.docs[i].id);
+      for (int i = 0; i < likeSentDocument.docs.length; i++) {
+        likeSentList.add(likeSentDocument.docs[i].id);
       }
       print("likeSentList" + likeSentList.toString());
       getKeysDataFromUserCollection(likeSentList);
     } else {
       // favoriteReceived
-      var favoriteReceivedDocument = await FirebaseFirestore.instance
+      var likeReceivedDocument = await FirebaseFirestore.instance
           .collection("users")
           .doc(currentUserID)
           .collection("likeReceived")
           .get();
 
-      for (int i = 0; i < favoriteReceivedDocument.docs.length; i++) {
-        likeReceivedList.add(favoriteReceivedDocument.docs[i].id);
+      for (int i = 0; i < likeReceivedDocument.docs.length; i++) {
+        likeReceivedList.add(likeReceivedDocument.docs[i].id);
       }
 
       print("likeReceivedList" + likeReceivedList.toString());
