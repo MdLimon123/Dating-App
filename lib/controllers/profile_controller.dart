@@ -37,7 +37,7 @@ class ProfileController extends GetxController {
 
     // remove the favorite from database
     if (doucument.exists) {
-      // remove currentUserID from the favoreite Received list of the profile person [toUserID]
+      // remove currentUserID from the favorite Received list of the profile person [toUserID]
 
       await FirebaseFirestore.instance
           .collection('users')
@@ -46,7 +46,7 @@ class ProfileController extends GetxController {
           .doc(currentUserID)
           .delete();
 
-      // remove profile person [toUserID] from the favoreite Received list of currentUserID
+      // remove profile person [toUserID] from the favorite Received list of currentUserID
       await FirebaseFirestore.instance
           .collection('users')
           .doc(currentUserID)
@@ -70,6 +70,58 @@ class ProfileController extends GetxController {
           .collection('users')
           .doc(currentUserID)
           .collection('favoriteSent')
+          .doc(toUserID)
+          .set({});
+
+      // sent notification
+    }
+
+    update();
+  }
+
+  likeSentAndFavoriteReceived(String toUserID, String senderName) async {
+    var doucument = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(toUserID)
+        .collection('likeReceived')
+        .doc(currentUserID)
+        .get();
+
+    // remove the like from database
+    if (doucument.exists) {
+      // remove currentUserID from the like Received list of the profile person [toUserID]
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(toUserID)
+          .collection('likeReceived')
+          .doc(currentUserID)
+          .delete();
+
+      // remove profile person [toUserID] from the like sent list of currentUserID
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserID)
+          .collection('likeSent')
+          .doc(toUserID)
+          .delete();
+    } else {
+      // add-sent like from database
+
+      // add  CurrentUserID to the likeReceived list of that profile person [toUserID]
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(toUserID)
+          .collection('likeReceived')
+          .doc(currentUserID)
+          .set({});
+
+      // add profile person [toUserID] to the likeSent  list of currentUserID
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUserID)
+          .collection('likeSent')
           .doc(toUserID)
           .set({});
 

@@ -98,7 +98,7 @@ class _SwippingScreenState extends State<SwippingScreen> {
                             height: 4.h,
                           ),
 
-                          // profiession and religion
+                          // profession and religion
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -201,7 +201,13 @@ class _SwippingScreenState extends State<SwippingScreen> {
 
                           // like
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+
+                              _profileController
+                                  .likeSentAndFavoriteReceived(
+                                  eachProfile.uid.toString(), senderName);
+
+                            },
                             child: Image.asset(
                               AppImage.like,
                               width: 60.w,
