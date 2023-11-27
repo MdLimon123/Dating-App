@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app/accountSettingScreen/account_settings_screen.dart';
+import 'package:dating_app/global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slider/carousel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class UserDetailsScreen extends StatefulWidget {
   final String? userID;
@@ -14,6 +17,8 @@ class UserDetailsScreen extends StatefulWidget {
 }
 
 class _UserDetailsScreenState extends State<UserDetailsScreen> {
+
+  // personal info
   String imageProfile = '';
   String email = '';
   String password = '';
@@ -31,6 +36,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   String weight = '';
   String bodyType = '';
 
+
   // Life style
 
   String drink = '';
@@ -46,7 +52,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   String relationshipYouAreLookingFor = '';
 
   // Background - Cultural Values
-
   String nationality = '';
   String education = '';
   String languageSpoken = '';
@@ -139,15 +144,34 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
+         // automaticallyImplyLeading: widget.userID == currentUserID ? false: true,
+          leading: widget.userID != currentUserID ?IconButton(
+              onPressed: (){
+                Get.back();
+              },
+              icon: Icon(Icons.arrow_back_outlined, size: 30.sp,)):Container(),
           actions: [
-            IconButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-                icon: Icon(
-                  Icons.logout,
-                  size: 30.sp,
-                ))
+            widget.userID == currentUserID?
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Get.to(AccountSettingScreen());
+                    },
+                    icon: Icon(
+                      Icons.settings,
+                      size: 30.sp,
+                    )),
+                IconButton(
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                    },
+                    icon: Icon(
+                      Icons.logout,
+                      size: 30.sp,
+                    )),
+              ],
+            ):Container()
           ],
         ),
         body: SingleChildScrollView(

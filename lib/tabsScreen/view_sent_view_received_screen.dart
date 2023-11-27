@@ -29,7 +29,7 @@ class _ViewSentViewReceivedScreen extends State<ViewSentViewReceivedScreen> {
       for (int i = 0; i < viewSentDocument.docs.length; i++) {
         viewSentList.add(viewSentDocument.docs[i].id);
       }
-      print("viewSentList" + viewSentList.toString());
+      print("viewSentList$viewSentList");
       getKeysDataFromUserCollection(viewSentList);
     } else {
       // viewReceived
@@ -43,7 +43,7 @@ class _ViewSentViewReceivedScreen extends State<ViewSentViewReceivedScreen> {
         viewReceivedList.add(viewReceivedDocument.docs[i].id);
       }
 
-      print("viewReceivedList" + viewReceivedList.toString());
+      print("viewReceivedList$viewReceivedList");
 
       getKeysDataFromUserCollection(viewReceivedList);
     }
@@ -66,7 +66,7 @@ class _ViewSentViewReceivedScreen extends State<ViewSentViewReceivedScreen> {
       viewList;
     });
 
-    print("viewList" + viewList.toString());
+    print("viewList$viewList");
   }
 
   @override
@@ -172,9 +172,7 @@ class _ViewSentViewReceivedScreen extends State<ViewSentViewReceivedScreen> {
                                   const Spacer(),
                                   // name - age
                                   Text(
-                                    viewList[index]['name'].toString() +
-                                        " ◉ " +
-                                        viewList[index]["age"].toString(),
+                                    "${viewList[index]['name']} ◉ ${viewList[index]["age"]}",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.sp,
@@ -197,10 +195,7 @@ class _ViewSentViewReceivedScreen extends State<ViewSentViewReceivedScreen> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          viewList[index]['city'].toString() +
-                                              ", " +
-                                              viewList[index]["country"]
-                                                  .toString(),
+                                          "${viewList[index]['city']}, ${viewList[index]["country"]}",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 14.sp,

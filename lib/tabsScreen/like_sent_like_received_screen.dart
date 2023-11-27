@@ -29,7 +29,7 @@ class _LikeSentLikeReceivedScreen extends State<LikeSentLikeReceivedScreen> {
       for (int i = 0; i < likeSentDocument.docs.length; i++) {
         likeSentList.add(likeSentDocument.docs[i].id);
       }
-      print("likeSentList" + likeSentList.toString());
+      print("likeSentList$likeSentList");
       getKeysDataFromUserCollection(likeSentList);
     } else {
       // favoriteReceived
@@ -43,7 +43,7 @@ class _LikeSentLikeReceivedScreen extends State<LikeSentLikeReceivedScreen> {
         likeReceivedList.add(likeReceivedDocument.docs[i].id);
       }
 
-      print("likeReceivedList" + likeReceivedList.toString());
+      print("likeReceivedList$likeReceivedList");
 
       getKeysDataFromUserCollection(likeReceivedList);
     }
@@ -66,7 +66,7 @@ class _LikeSentLikeReceivedScreen extends State<LikeSentLikeReceivedScreen> {
       likeList;
     });
 
-    print("likeList" + likeList.toString());
+    print("likeList$likeList");
   }
 
   @override
@@ -172,9 +172,7 @@ class _LikeSentLikeReceivedScreen extends State<LikeSentLikeReceivedScreen> {
                                   const Spacer(),
                                   // name - age
                                   Text(
-                                    likeList[index]['name'].toString() +
-                                        " ◉ " +
-                                        likeList[index]["age"].toString(),
+                                    "${likeList[index]['name']} ◉ ${likeList[index]["age"]}",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.sp,
@@ -197,10 +195,7 @@ class _LikeSentLikeReceivedScreen extends State<LikeSentLikeReceivedScreen> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          likeList[index]['city'].toString() +
-                                              ", " +
-                                              likeList[index]["country"]
-                                                  .toString(),
+                                          "${likeList[index]['city']}, ${likeList[index]["country"]}",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 14.sp,
