@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dating_app/tabsScreen/user_details_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class PushNotificationSystem{
 
@@ -76,6 +81,130 @@ Future whenNotificationReceived(BuildContext context)async{
   openAppAndShowNotificationData(receiverID, senderID, context)async{
 
 
+  await FirebaseFirestore.instance.collection('users')
+      .doc(senderID)
+      .get().
+  then((snapshot){
+
+    String profileImage = snapshot.data()!['imageProfile'].toString();
+    String name = snapshot.data()!['name'].toString();
+    String age = snapshot.data()!['age'].toString();
+    String city = snapshot.data()!['city'].toString();
+    String country = snapshot.data()!['country'].toString();
+    String profession = snapshot.data()!['profession'].toString();
+
+    showDialog(
+        context: context,
+        builder: (context){
+          return notificationDialogBox(
+            senderID,
+            profileImage,
+            name,
+            age,
+            city,
+            country,
+            profession,
+            context
+          );
+        }
+    );
+
+  });
+
+  }
+
+  notificationDialogBox(senderID,profileImage, name, age, city, country,profession,context ){
+
+  return Dialog(
+    child: GridTile(
+      child: Padding(
+        padding: EdgeInsets.all(2.w),
+        child: SizedBox(
+          height: 300.h,
+          child: Card(
+            color: Colors.blue.shade200,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                image: DecorationImage(image: NetworkImage(profileImage),
+                fit: BoxFit.cover)
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(8.w),
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      // name and age
+                      Text(name + " ◉ " + age.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold
+                      ),),
+
+                      SizedBox(height: 8.h,),
+
+                      // icon - city, country, location
+                      Row(
+                        children: [
+                          Icon(Icons.location_on_outlined,
+                          color: Colors.white,
+                              size: 16.sp,),
+                          SizedBox(width: 2.w,),
+
+                          Expanded(child: Text(city + ", "+ country.toString(),
+                          maxLines: 4,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.sp
+                          ),)),
+
+                        ],
+                      ),
+
+                    const  Spacer(),
+
+                      // 2 button
+                      Row(
+                        children: [
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: (){
+                                Get.back();
+                                Get.to(UserDetailsScreen(userID: senderID,));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green
+                              ),
+                              child: const Text("View Profile"),
+                            ),
+                          ),
+
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: (){
+                                Get.back();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.redAccent
+                              ),
+                              child: const Text("Close"),
+                            ),
+                          )
+                        ],
+                      )
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 
   }
 
