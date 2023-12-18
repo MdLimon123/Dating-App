@@ -1,30 +1,62 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/global.dart';
 import 'package:dating_app/models/person.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileController extends GetxController {
   final Rx<List<Person>> userProfileList = Rx<List<Person>>([]);
 
   List<Person> get allUserProfileList => userProfileList.value;
 
+  getResults(){
+
+    onInit();
+
+  }
+
   @override
   void onInit() {
     super.onInit();
 
-    userProfileList.bindStream(FirebaseFirestore.instance
-        .collection('users')
-        .where('uid', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .snapshots()
-        .map((QuerySnapshot queryDataSnapshot) {
-      List<Person> profilesList = [];
+    if(chosenGender == null || chosenCountry == null || chosenAge == null){
 
-      for (var eachFor in queryDataSnapshot.docs) {
-        profilesList.add(Person.fromDataSnapshot(eachFor));
-      }
-      return profilesList;
-    }));
+      userProfileList.bindStream(FirebaseFirestore.instance
+          .collection('users')
+          .where('uid', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .snapshots()
+          .map((QuerySnapshot queryDataSnapshot) {
+        List<Person> profilesList = [];
+
+        for (var eachFor in queryDataSnapshot.docs) {
+          profilesList.add(Person.fromDataSnapshot(eachFor));
+        }
+        return profilesList;
+      }));
+
+    }else{
+
+      userProfileList.bindStream(FirebaseFirestore.instance
+          .collection('users')
+          .where('gender', isEqualTo: chosenGender.toString().toLowerCase())
+          .where('country', isEqualTo: chosenCountry.toString())
+          .where('age', isGreaterThanOrEqualTo: int.parse(chosenAge.toString()))
+          .snapshots()
+          .map((QuerySnapshot queryDataSnapshot) {
+        List<Person> profilesList = [];
+
+        for (var eachFor in queryDataSnapshot.docs) {
+          profilesList.add(Person.fromDataSnapshot(eachFor));
+        }
+        return profilesList;
+      }));
+
+    }
+
+
   }
 
 // favorite sent and favorite received method
@@ -74,7 +106,10 @@ class ProfileController extends GetxController {
           .doc(toUserID)
           .set({});
 
-      // sent notification
+      // send notification
+      
+      sendNotificationToUser(toUserID, 'Favorite', senderName);
+      
     }
 
     update();
@@ -127,7 +162,9 @@ class ProfileController extends GetxController {
           .doc(toUserID)
           .set({});
 
-      // sent notification
+      // send notification
+
+      sendNotificationToUser(toUserID, 'Like', senderName);
     }
 
     update();
@@ -164,9 +201,73 @@ class ProfileController extends GetxController {
           .doc(toUserID)
           .set({});
 
-      // sent notification
+      // send notification
+      sendNotificationToUser(toUserID, 'View', senderName);
     }
 
     update();
   }
+
+  sendNotificationToUser(receiverID, featureType, senderName)async{
+
+    String userDeviceToken = "";
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverID)
+        .get()
+        .then((snapshot){
+
+          if(snapshot.data()!['userDeviceToken'] !=null){
+
+            userDeviceToken = snapshot.data()!['userDeviceToken'].toString();
+          }
+    });
+
+    notificationFormat(
+        userDeviceToken,
+        receiverID,
+        featureType,
+        senderName
+
+    );
+  }
+
+  notificationFormat(  userDeviceToken, receiverID, featureType, senderName){
+
+    Map<String, String> headerNotification ={
+      "Content-Type":"application/json",
+       "Authorization":fcmServerToken
+    };
+
+    Map bodyNotification =
+        {
+          "body": "you have received a new $featureType from $senderName. Click to see.",
+          "title": "New $featureType"
+        };
+
+    Map dataMap =
+        {
+          "click_action": "FLUTTER_NOTIFICATION_CLICK",
+          "id": "1",
+          "status": "done",
+          "userID": receiverID,
+          "senderID": currentUserID
+        };
+
+    Map notificationOfficialFormat =
+        {
+          "notification":bodyNotification,
+          "data": dataMap,
+          "priority": "high",
+          "to": userDeviceToken
+        };
+
+    http.post(Uri.parse("https://fcm.googleapis.com/fcm/send"),
+    headers: headerNotification,
+    body: jsonEncode(notificationOfficialFormat));
+
+
+  }
+
 }

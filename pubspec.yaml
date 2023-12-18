@@ -44,6 +44,8 @@ dependencies:
   cloud_firestore:
   firebase_messaging:
   flutter_image_slider:
+  http:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

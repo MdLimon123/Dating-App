@@ -31,6 +31,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController ageTextEditingController =
       TextEditingController();
 
+  final TextEditingController genderTextEditingController = TextEditingController();
+
   final TextEditingController phoneNoTextEditingController =
       TextEditingController();
 
@@ -267,6 +269,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   textEditingController: ageTextEditingController,
                   labelText: 'Age',
                   iconData: Icons.numbers,
+                  isObscure: false,
+                ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+
+              // gender
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 36,
+                height: 55.h,
+                child: CustomTextField(
+                  textEditingController: genderTextEditingController,
+                  labelText: 'Gender',
+                  iconData: Icons.person_pin,
                   isObscure: false,
                 ),
               ),
@@ -712,6 +729,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           emailTextEditingController.text.trim().isNotEmpty &&
                           passwordEditingController.text.trim().isNotEmpty &&
                           ageTextEditingController.text.trim().isNotEmpty &&
+                          genderTextEditingController.text.trim().isNotEmpty &&
                           phoneNoTextEditingController.text.trim().isNotEmpty &&
                           cityTextEditingController.text.trim().isNotEmpty &&
                           countryTextEditingController.text.trim().isNotEmpty &&
@@ -778,6 +796,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             passwordEditingController.text.trim(),
                             nameTextEditingController.text.trim(),
                             ageTextEditingController.text.trim(),
+                            genderTextEditingController.text.trim(),
                             phoneNoTextEditingController.text.trim(),
                             cityTextEditingController.text.trim(),
                             countryTextEditingController.text.trim(),

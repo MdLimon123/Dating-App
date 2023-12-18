@@ -28,7 +28,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
 
 
   // personal info
-
+  final TextEditingController genderTextEditingController =
+  TextEditingController();
 
   final TextEditingController nameTextEditingController =
   TextEditingController();
@@ -114,6 +115,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
   // personal info
   String name = '';
   String age = '';
+  String gender = '';
   String phoneNo = '';
   String city = '';
   String country = '';
@@ -189,6 +191,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
               nameTextEditingController.text = name;
               age = snapshot.data()!['age'].toString();
               ageTextEditingController.text = age;
+              gender = snapshot.data()!['gender'].toString();
+              genderTextEditingController.text = gender;
               phoneNo = snapshot.data()!['phoneNo'];
               phoneNoTextEditingController.text = phoneNo;
               city = snapshot.data()!['city'];
@@ -256,6 +260,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
 
       String name,
       String age,
+      String gender,
       String phoneNo,
       String city,
       String country,
@@ -317,6 +322,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
     // personal info
     'name': name,
     'age': int.parse(age),
+    'gender': gender.toLowerCase(),
     'phoneNo': phoneNo,
     'city': city,
     'country': country,
@@ -469,6 +475,22 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
               SizedBox(
                 height: 20.h,
               ),
+
+              // gender
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 36,
+                height: 55.h,
+                child: CustomTextField(
+                  textEditingController: genderTextEditingController,
+                  labelText: 'Gender',
+                  iconData: Icons.person_pin,
+                  isObscure: false,
+                ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+
 
               // phoneNo
 
@@ -888,6 +910,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
 
                     if (nameTextEditingController.text.trim().isNotEmpty &&
                         ageTextEditingController.text.trim().isNotEmpty &&
+                        genderTextEditingController.text.trim().isNotEmpty &&
                         phoneNoTextEditingController.text.trim().isNotEmpty &&
                         cityTextEditingController.text.trim().isNotEmpty &&
                         countryTextEditingController.text.trim().isNotEmpty &&
@@ -950,6 +973,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                       await updateUserDataToFirestoreDatabase(
                           nameTextEditingController.text.trim(),
                           ageTextEditingController.text.trim(),
+                          genderTextEditingController.text.trim(),
                           phoneNoTextEditingController.text.trim(),
                           cityTextEditingController.text.trim(),
                           countryTextEditingController.text.trim(),
